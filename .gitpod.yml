@@ -1,0 +1,9 @@
+image: gitpod/workspace-mysql
+tasks:
+  - init: |
+      mysql -u root -e "CREATE DATABASE IF NOT EXISTS sample_db;"
+    command: |
+      php -S 0.0.0.0:8000 simple_mysql_integration.php
+ports:
+  - port: 8000
+    onOpen: open-preview
