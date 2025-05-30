@@ -1,0 +1,9 @@
+{
+  "name": "PHP Dev",
+  "image": "mcr.microsoft.com/devcontainers/php:latest",
+  "features": {
+    "ghcr.io/devcontainers/features/apache-httpd:1": {}
+  },
+  "forwardPorts": [8000],
+  "postCreateCommand": "php -S 0.0.0.0:8000 -t ."
+}

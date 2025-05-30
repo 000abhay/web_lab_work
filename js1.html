@@ -1,0 +1,267 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Credit Card Validator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      /* background: #f0f0f0; */
+      background: #2A7B9B;
+background: linear-gradient(90deg, rgba(42, 123, 155, 1) 0%, rgba(87, 199, 133, 1) 50%, rgba(237, 221, 83, 1) 100%);
+      padding: 50px;
+      text-align: center;
+    }
+    .container {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      max-width: 400px;
+     transition: background-color 0.5s ease 0.1s;
+      margin: auto;
+    }
+    .container:hover {
+    background-color:radial-gradient(circle,rgba(169, 209, 23, 1) 0%, rgba(148, 187, 233, 1) 100%);
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      width: 80%;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover{
+        background-color: #0aea3e;
+    }
+    .result {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Credit Card Validator</h2>
+    <input type="text" id="cardNumber" placeholder="Enter card number">
+    <br>
+    <button onclick="validateCard()">Validate</button>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    function validateCard() {
+      const cardNumber = document.getElementById("cardNumber").value.trim();
+      const result = document.getElementById("result");
+
+      // Remove all non-digit characters
+      const cleaned = cardNumber.replace(/\D/g, '');
+
+      // Validation Logic
+      if (/^5[1-5]\d{14}$/.test(cleaned)) {
+        result.textContent = "Valid MasterCard";
+        result.style.color = "green";
+      } else if (/^4\d{12}(\d{3})?$/.test(cleaned)) {
+        result.textContent = "Valid Visa Card";
+        result.style.color = "green";
+      } else if (/^3[47]\d{13}$/.test(cleaned)) {
+        result.textContent = "Valid American Express";
+        result.style.color = "green";
+      } else {
+        result.textContent = "Invalid Card Number";
+        result.style.color = "red";
+      }
+    //  const number=document.getElementById("cardNumber").value.trim();
+    //  const checknumber=number.replace(/\D/g,'');
+    //  const result=document.getElementById("result");
+    //   if(/^5[1-5]\d{10}$/.test(checknumber))
+    //   {
+    //     result.textContent="valid master card";
+    //     result.style.color="green";
+    //   }
+     }
+  </script>
+</body>
+</html>
+ -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dynamic Credit Card Validator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+      padding: 30px;
+    }
+
+    .container {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      max-width: 800px;
+      margin: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: center;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      width: 60%;
+      font-size: 16px;
+      margin: 10px 0;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 5px;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-weight: bold;
+      font-size: 18px;
+      text-align: center;
+    }
+
+    h2, h3 {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Dynamic Credit Card Validator</h2>
+
+    <h3>Edit Validation Rules</h3>
+    <table id="rulesTable">
+      <thead>
+        <tr>
+          <th>Card Type</th>
+          <th>Prefix (comma separated)</th>
+          <th>Length (comma separated)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input type="text" value="Master Card"></td>
+          <td><input type="text" value="51,52,53,54,55"></td>
+          <td><input type="text" value="16"></td>
+        </tr>
+        <tr>
+          <td><input type="text" value="Visa"></td>
+          <td><input type="text" value="4"></td>
+          <td><input type="text" value="13,16"></td>
+        </tr>
+        <tr>
+          <td><input type="text" value="American Express"></td>
+          <td><input type="text" value="34,37"></td>
+          <td><input type="text" value="15"></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <button onclick="saveRules()">Save Rules</button>
+
+    <h3>Enter Card Number</h3>
+    <input type="text" id="cardNumber" placeholder="Enter credit card number">
+    <br>
+    <button onclick="validateCard()">Validate</button>
+
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    let savedRules = [];
+
+    function saveRules() {
+      const rows = document.querySelectorAll("#rulesTable tbody tr");
+      savedRules = [];
+
+      rows.forEach(row => {
+        const cells = row.querySelectorAll("td");
+        const cardType = cells[0].querySelector("input").value.trim();
+        const prefixes = cells[1].querySelector("input").value.trim().split(',').map(p => p.trim());
+        const lengths = cells[2].querySelector("input").value.trim().split(',').map(len => parseInt(len.trim()));
+
+        savedRules.push({ cardType, prefixes, lengths });
+      });
+
+      document.getElementById("result").textContent = "Rules saved successfully!";
+      document.getElementById("result").style.color = "blue";
+    }
+
+    function validateCard() {
+      const cardNumber = document.getElementById("cardNumber").value.trim().replace(/\D/g, '');
+      const result = document.getElementById("result");
+
+      if (cardNumber.length === 0) {
+        result.textContent = "Please enter a card number.";
+        result.style.color = "orange";
+        return;
+      }
+
+      let isValid = false;
+
+      for (let rule of savedRules) {
+        for (let prefix of rule.prefixes) {
+          if (cardNumber.startsWith(prefix)) {
+            if (rule.lengths.includes(cardNumber.length)) {
+              result.textContent = Valid ${rule.cardType};
+              result.style.color = "green";
+              isValid = true;
+              break;
+            }
+          }
+        }
+        if (isValid) break;
+      }
+
+      if (!isValid) {
+        result.textContent = "Invalid card number based on saved rules.";
+        result.style.color = "red";
+      }
+    }
+  </script>
+</body>
+</html> 

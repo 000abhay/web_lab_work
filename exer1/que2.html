@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voting Eligibility Form</title>
+</head>
+<body>
+    <h2>Voting Eligibility Check</h2>
+    <form id="votingForm" onsubmit="return checkEligibility(event)">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="age">Age:</label><br>
+        <input type="number" id="age" name="age" required><br><br>
+
+        <label>Nationality123132:</label><br>
+        <input type="radio" id="indian" name="nationaly" value="Indian" required>
+        <label for="indian">Indian</label>
+        <input type="radio" id="indian" name="nationaly" value="Other">
+        <label for="other">Other</label><br><br>
+
+        <button type="submit">Check Eligibility</button>
+    </form>
+
+    <p id="result"></p>
+
+    <script >
+        function checkEligibility(event) {
+    event.preventDefault(); // Prevent form submission
+
+    // Get form values
+    const name = document.getElementById("name").value;
+    const age = parseInt(document.getElementById("age").value);
+    const nationality = document.querySelector('input[name="nationality"]:checked').value;
+    const result = document.getElementById("result");
+
+    // Check conditions
+    if (age >= 18 && nationality === "Indian") {
+        result.textContent = `${name}, you are eligible to vote!`;
+        result.style.color = "green";
+    } else {
+        result.textContent = `${name}, you are not eligible to vote.`;
+        result.style.color = "red";
+    }
+
+    return false; // Prevent form submission
+}
+    </script>
+</body>
+</html>
